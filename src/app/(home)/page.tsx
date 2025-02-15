@@ -1,8 +1,12 @@
-import React from 'react'
 
-const page = async() => {
+import Carasal from '@/components/shared/home/carasal'
+import data from '@/lib/data'
+
+
+
+const page = () => {
   return (
-    <h1 className='h1-bold text-center'>Home page Content</h1>
+    <Carasal items={data.carousels}/>
   )
 }
 
