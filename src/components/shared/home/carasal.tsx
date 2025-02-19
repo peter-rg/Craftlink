@@ -43,7 +43,7 @@ const Carasal = (
                             
                                 <div className='absolute top-1/2 left-12 w-1/3 -translate-y-1/2' >
                                     <h2 className='md:text-6xl text-xl mb-4 text-primary font-bold'>{item.title}</h2>
-                                    <Button className='hidden md:block'>{item.buttonCaption}</Button>
+                                    <Button className='hidden md:block '>{item.buttonCaption}</Button>
                                 </div>
                             </div>
                         </Link>    

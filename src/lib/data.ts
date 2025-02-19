@@ -1,5 +1,6 @@
-    import { Data, IProductInput } from '@/types'
-    import { toSlug } from './utils'
+
+    import { IProductInput, Data } from '../../types'
+import { toSlug } from './utils'
 
     const products: IProductInput[] = [
       // T-Shirts

@@ -7,7 +7,7 @@ import { loadEnvConfig } from '@next/env'
 import dbConnect from './mongodb'
 
 loadEnvConfig(cwd())
-
+console.log(process.env.MONGODB_URI);
 const main = async () => {
     try {
     const { products } = data

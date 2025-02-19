@@ -19,7 +19,7 @@ export default function Header() {
               className='flex items-center header-button font-extrabold text-2xl m-1 '
             >
               <Image
-                src='/icons/Logo.svg'
+                src='/icons/Log.svg'
                 width={60}
                 height={60}
                 alt={`${APP_NAME} logo`}
@@ -50,7 +50,7 @@ export default function Header() {
           All
         </Button>
         {/* header menu for tags */}
-        <div className='flex items-center flex-wrap gap-3 overflow-hidden   max-h-[42px]'>
+        <div className='flex items-center flex-wrap gap-3 overflow-hidden max-h-[42px]'>
           {data.headerMenus.map((menu) => (
             <Link
               href={menu.href}
