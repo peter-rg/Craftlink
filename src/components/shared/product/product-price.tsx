@@ -2,7 +2,7 @@ import { cn, formatCurrency } from "@/lib/utils"
 
 const ProductPrice = (
     {
-        price, className, listPrice =0, isDeal=false, forListing=true, plain=false
+        price, listPrice =0, isDeal=false,className, forListing=true, plain=false
     }:
     { price:number, isDeal?: boolean, listPrice?: number,
       className?:string, forListing?:boolean, plain?:boolean  

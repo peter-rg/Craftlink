@@ -1,3 +1,4 @@
+import { PAGE_SIZE } from "../constants";
 import Product, { IProduct } from "../db/models/product.model";
 import dbConnect from "../db/mongodb";
 
@@ -47,3 +48,30 @@ export const getProductsByTag = async ({ tag, limit = 10 }: { tag: string, limit
     )
 }
 
+export async function getProductBySlug(slug:string){
+    await dbConnect()
+    const product = await Product.findOne({slug, isPublished:true})
+    if(!product) throw new Error('product not found')
+    return JSON.parse(JSON.stringify(product)) as IProduct
+}
+
+export async function getProductsRelatedByCategory({category,productId,limit= PAGE_SIZE, page=1}:{
+    category:string, productId:string, limit?:number, page:number
+}){
+    await dbConnect()
+    const skipAmount = (Number(page)-1)*limit
+    const conditions = { 
+        isPublished:true, category, _id:{$ne: productId}
+    }
+
+    const products = await Product.find(conditions)
+        .sort({numSales :'desc'})
+        .skip(skipAmount)
+        .limit(limit)
+    const productscount = await Product.countDocuments(conditions)
+
+    return {
+        data: JSON.parse(JSON.stringify(products)) as IProduct[],
+        totalPages: Math.ceil(productscount / limit)
+    }
+}

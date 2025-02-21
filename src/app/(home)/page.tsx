@@ -7,14 +7,14 @@ import { getAllCategories, getProductsByTag, getProductsForCard } from '@/lib/ac
 import data from '@/lib/data'
 import { toSlug } from '@/lib/utils'
 
-
-
 const Homepage = async () => {
-  const todaysDeals = await getProductsByTag({ tag: 'todays-deal' })
-  const categories = (await getAllCategories()).slice(0, 4)
   const newArrivals = await getProductsForCard({ tag: 'new-arrival' })
   const featured = await getProductsForCard({ tag: 'featured' })
   const bestSellers = await getProductsForCard({ tag: 'best-seller' })
+
+  const todaysDeals = await getProductsByTag({ tag: 'todays-deal' })
+  const categories = (await getAllCategories()).slice(0, 4)
+  const bestSellingProducts = await getProductsByTag({tag: 'best-seller'})
 
   const cards = [
   {
@@ -50,11 +50,11 @@ const Homepage = async () => {
         <Card className='w-full rounded-none'>
           <CardContent className='p-4 items-center gap-3'>
             <ProductSlider title={"Today's Deals"} products={todaysDeals} />
+            <ProductSlider title='Best Selling Products' products={bestSellingProducts} hideDetails/>
           </CardContent>
         </Card>
       </div>
     </>
-    
   )
 }
 

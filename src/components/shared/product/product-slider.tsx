@@ -33,11 +33,13 @@
              {products.map((product) => (
                <CarouselItem
                  key={product.slug}
-                 className={
-                   hideDetails
-                     ? 'md:basis-1/4 lg:basis-1/6'
-                     : 'md:basis-1/3 lg:basis-1/5'
+                 className={`
+                   ${hideDetails
+                     ? 'sm:basis-1/2 md:basis-1/4 lg:basis-1/6'
+                     : 'sm:basis-1/2 md:basis-1/3 lg:basis-1/5'}
+                     w-full sm:w-1/2 md:w-1/3 lg:w-1/5`
                  }
+                 
                >
                  <ProductCard
                    hideDetails={hideDetails}

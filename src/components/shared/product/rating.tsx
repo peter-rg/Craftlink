@@ -10,7 +10,7 @@ export default function Rating({
     
     return (
         <div className="flex items-center"
-            aria-label={`Rating: ${rating} aot of 5 stars`}
+            aria-label={`Rating: ${rating} out of 5 stars`}
         >
             {[...Array(fullStars)].map((_, i) => (
                 <Star key={`full-${i}`}

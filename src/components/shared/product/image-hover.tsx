@@ -43,7 +43,7 @@
            alt={alt}
            fill
            sizes='80vw'
-           className={`absolute inset-0 object-contain transition-opacity duration-500 ${
+           className={`absolute object-contain transition-opacity duration-500 ${
              isHovered ? 'opacity-100' : 'opacity-0'
            }`}
          />
