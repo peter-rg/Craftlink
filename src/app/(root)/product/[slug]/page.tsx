@@ -7,6 +7,8 @@ import { Separator } from '@/components/ui/separator'
 import ProductSlider from '@/components/shared/product/product-slider'
 import { getProductBySlug, getProductsRelatedByCategory } from '@/lib/actions/product-action'
 import Rating from '@/components/shared/product/rating'
+import BrowsingHistoryList from '@/components/shared/browsing-history'
+import AddToBrowsingHistory from '@/components/shared/product/add-to-browsing-history'
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>
@@ -43,13 +45,15 @@ export default async function ProductDetails(props: {
   })
 
   return (
-    <div>
+    <>
+      <AddToBrowsingHistory id={product._id} category={product.category} />
       <section>
         <div className='grid grid-cols-1 md:grid-cols-5  '>
+          {/* Product image */}
           <div className='col-span-2'>
             <ProductGallery images={product.images} />
           </div>
-
+          {/* product details */}
           <div className='flex w-full flex-col gap-2 md:p-5 col-span-2'>
             <div className='flex flex-col gap-3'>
               <p className='p-medium-16 rounded-full bg-grey-500/10   text-grey-500'>
@@ -91,6 +95,7 @@ export default async function ProductDetails(props: {
             </div>
           </div>
           <div>
+            {/* price and stock details */}
             <Card>
               <CardContent className='p-4 flex flex-col  gap-4'>
                 <ProductPrice price={product.price} />
@@ -119,6 +124,9 @@ export default async function ProductDetails(props: {
           title={`Best Sellers in ${product.category}`}
         />
       </section>
-    </div>
+      <section>
+        <BrowsingHistoryList className='mt-10' />
+      </section>
+    </>
   )
 }

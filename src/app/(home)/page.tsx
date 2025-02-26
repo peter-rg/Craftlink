@@ -1,4 +1,5 @@
 
+import BrowsingHistoryList from '@/components/shared/browsing-history'
 import Carasal from '@/components/shared/home/carasal'
 import HomeCard from '@/components/shared/home/home-card'
 import ProductSlider from '@/components/shared/product/product-slider'
@@ -13,12 +14,13 @@ const Homepage = async () => {
   const bestSellers = await getProductsForCard({ tag: 'best-seller' })
 
   const todaysDeals = await getProductsByTag({ tag: 'todays-deal' })
-  const categories = (await getAllCategories()).slice(0, 4)
   const bestSellingProducts = await getProductsByTag({tag: 'best-seller'})
+
+  const categories = (await getAllCategories()).slice(0, 4)
 
   const cards = [
   {
-    title: 'categories to explore',
+    title: 'Categories To Explore',
     link: { text: 'See More', href:'/search' },
     items: categories.map(category => ({
       name: category,
@@ -53,6 +55,9 @@ const Homepage = async () => {
             <ProductSlider title='Best Selling Products' products={bestSellingProducts} hideDetails/>
           </CardContent>
         </Card>
+      </div>
+      <div className='p-4 bg-background'>
+        <BrowsingHistoryList />
       </div>
     </>
   )

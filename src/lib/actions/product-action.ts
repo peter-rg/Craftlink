@@ -4,9 +4,7 @@ import dbConnect from "../db/mongodb";
 
 export async function getAllCategories() {
     await dbConnect()
-    const categories = await Product.find({
-        isPublished: true
-    }).distinct('category')
+    const categories = await Product.distinct('category', { isPublished: true })
     return categories
 }
 

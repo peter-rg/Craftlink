@@ -19,29 +19,29 @@ export default function SelectVariant({
       {product.colors.length > 0 && (
         <div className='space-x-2 space-y-2'>
           <div>Color:</div>
-          {product.colors.map((x: string) => (
+          {product.colors.map((colour: string) => (
             <Button
               asChild
               variant='outline'
               className={
-                selectedColor === x ? 'border-2 border-primary' : 'border-2'
+                selectedColor === colour ? 'border-2 border-primary' : 'border-2'
               }
-              key={x}
+              key={colour}
             >
               <Link
                 replace
                 scroll={false}
                 href={`?${new URLSearchParams({
-                  color: x,
+                  color: colour,
                   size: selectedSize,
                 })}`}
-                key={x}
+                key={colour}
               >
                 <div
-                  style={{ backgroundColor: x }}
+                  style={{ backgroundColor: colour }}
                   className='h-4 w-4 rounded-full border border-muted-foreground'
                 ></div>
-                {x}
+                {colour}
               </Link>
             </Button>
           ))}
@@ -50,26 +50,26 @@ export default function SelectVariant({
       {product.sizes.length > 0 && (
         <div className='mt-2 space-x-2 space-y-2'>
           <div>Size:</div>
-          {product.sizes.map((x: string) => (
+          {product.sizes.map((needSize: string) => (
             <Button
               asChild
               variant='outline'
               className={
-                selectedSize === x
+                selectedSize === needSize
                   ? 'border-2  border-primary'
                   : 'border-2  '
               }
-              key={x}
+              key={needSize}
             >
               <Link
                 replace
                 scroll={false}
                 href={`?${new URLSearchParams({
                   color: selectedColor,
-                  size: x,
+                  size: needSize,
                 })}`}
               >
-                {x}
+                {needSize}
               </Link>
             </Button>
           ))}
