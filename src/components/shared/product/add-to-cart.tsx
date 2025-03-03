@@ -9,10 +9,10 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import useCartStore from '@/hooks/use-cart-store'
-import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { OrderItem } from '@/types'
+import { useToast } from '@/hooks/use-toast'
 
 export default function AddToCart({
   item,
