@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 
 import SelectVariant from '@/components/shared/product/select-variant'
 import ProductPrice from '@/components/shared/product/product-price'
@@ -9,6 +9,8 @@ import { getProductBySlug, getProductsRelatedByCategory } from '@/lib/actions/pr
 import Rating from '@/components/shared/product/rating'
 import BrowsingHistoryList from '@/components/shared/browsing-history'
 import AddToBrowsingHistory from '@/components/shared/product/add-to-browsing-history'
+import AddToCart from '@/components/shared/product/add-to-cart'
+import { generateId } from '@/lib/utils'
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>
@@ -29,13 +31,9 @@ export default async function ProductDetails(props: {
   searchParams: Promise<{ page: string; color: string; size: string }>
 }) {
   const searchParams = await props.searchParams
-
   const { page, color, size } = searchParams
-
   const params = await props.params
-
   const { slug } = params
-
   const product = await getProductBySlug(slug)
 
   const relatedProducts = await getProductsRelatedByCategory({
@@ -86,6 +84,7 @@ export default async function ProductDetails(props: {
                 color={color || product.colors[0]}
               />
             </div>
+            {/* product description */}
             <Separator className='my-2' />
             <div className='flex flex-col gap-2'>
               <p className='p-bold-20 text-grey-600'>Description:</p>
@@ -113,17 +112,40 @@ export default async function ProductDetails(props: {
                   </div>
                 )}
               </CardContent>
+              <CardFooter>
+                    {/* Add to cart */}
+                    {product.countInStock !== 0 && (
+                      <div className='flex justify-center items-center'>
+                        <AddToCart
+                          item={{
+                            clientId:generateId(),
+                            product: product._id,
+                            countInStock: product.countInStock,
+                            name: product.name,
+                            slug: product.slug,
+                            category: product.category,
+                            quantity: 1,
+                            image: product.images[0],
+                            price: product.price,
+                            size: size || product.sizes[0],
+                            color: color || product.colors[0],
+                          }}
+                        />
+                      </div>
+                    )}
+              </CardFooter>
             </Card>
           </div>
         </div>
       </section>
-
+      {/* related items */}
       <section className='mt-10'>
         <ProductSlider
           products={relatedProducts.data}
           title={`Best Sellers in ${product.category}`}
         />
       </section>
+      {/* products viewed */}
       <section>
         <BrowsingHistoryList className='mt-10' />
       </section>
