@@ -1,61 +1,112 @@
 'use client'
 
-import { OrderItem } from "../../../../types";
-import useCartStore from "@/hooks/use-cart-store";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
+import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import useCartStore from '@/hooks/use-cart-store'
+import { useToast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { OrderItem } from '@/types'
 
-interface AddToCartProps {
-    item: OrderItem;
-    minimal?: boolean;
-}
-
-export default function AddToCart({ item, minimal = false }: AddToCartProps) {
-    const router = useRouter();
-    const { addItem } = useCartStore();
-    const [quantity, setQuantity] = useState(1);
-
-    const handleAddToCart = async () => {
-            const itemId = await addItem(item, quantity);
-    
-            <Button onClick={() => router.push('/cart')}>
+export default function AddToCart({
+  item,
+  minimal = false,
+}: {
+  item: OrderItem
+  minimal?: boolean
+}) {
+  const router = useRouter()
+  const { toast } = useToast()
+  const { addItem } = useCartStore()
+  const [quantity, setQuantity] = useState(1)
+  
+ /* eslint-disable @typescript-eslint/no-explicit-any */
+  return minimal ? (
+    <Button
+      className="rounded-full w-auto"
+      onClick={() => {
+        try {
+          addItem(item, 1)
+          toast({
+            description: 'Added to Cart',
+            action: (
+              <Button
+                onClick={() => {
+                  router.push('/cart')
+                }}
+              >
                 Go to Cart
-            </Button>
-            router.push(`/cart/${itemId}`);
-    };
+              </Button>
+            ),
+          })
+        } catch (error: any) {
+          toast({
+            variant: 'destructive',
+            description: error.message,
+          })
+        }
+      }}
+    >
+      Add to Cart
+    </Button>
+  ) : (
+    <div className="w-full space-y-2">
+      <Select
+        value={quantity.toString()}
+        onValueChange={(i) => setQuantity(Number(i))}
+      >
+        <SelectTrigger className="">
+          <SelectValue>Quantity: {quantity}</SelectValue>
+        </SelectTrigger>
+        <SelectContent position="popper">
+          {Array.from({ length: item.countInStock }).map((_, i) => (
+            <SelectItem key={i + 1} value={`${i + 1}`}>
+              {i + 1}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
-    const handleBuyNow = async () => {
-        await addItem(item, quantity);
-        router.push(`/checkout`);
-    }
-
-    return minimal ? (
-        <Button className='rounded-full w-auto' onClick={handleAddToCart}>
-            Add to Cart
-        </Button>
-    ) : (
-        <div className='w-full space-y-2'>
-            <Select value={quantity.toString()} onValueChange={(value) => setQuantity(Number(value))}>
-                <SelectTrigger>
-                    <SelectValue>Quantity: {quantity}</SelectValue>
-                </SelectTrigger>
-                <SelectContent position='popper'>
-                    {Array.from({ length: item.countInStock }).map((_, index) => (
-                        <SelectItem key={index + 1} value={`${index + 1}`}>
-                            {index + 1}
-                        </SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
-
-            <Button className='rounded-full w-full' type='button' onClick={handleAddToCart}>
-                Add to Cart
-            </Button>
-            <Button variant='secondary' className='w-full rounded-full' onClick={handleBuyNow}>
-                Buy Now
-            </Button>
-        </div>
-    );
+      <Button
+        className="rounded-full w-full"
+        type="button"
+        onClick={async () => {
+          try {
+            const itemId = await addItem(item, quantity)
+            router.push(`/cart/${itemId}`)
+          } catch (error: any) {
+            toast({
+              variant: 'destructive',
+              description: error.message,
+            })
+          }
+        }}
+      >
+        Add to Cart
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={() => {
+          try {
+            addItem(item, quantity)
+            router.push(`/checkout`)
+          } catch (error: any) {
+            toast({
+              variant: 'destructive',
+              description: error.message,
+            })
+          }
+        }}
+        className="w-full rounded-full "
+      >
+        Buy Now
+      </Button>
+    </div>
+  )
 }
