@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import client from './lib/db/client'
 import User from './lib/db/models/user.model'
-
+import Google from 'next-auth/providers/google'
 import NextAuth, { type DefaultSession } from 'next-auth'
 import authConfig from './auth.config'
 import dbConnect from './lib/db/mongodb'
@@ -30,6 +30,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   adapter: MongoDBAdapter(client),
   providers: [
+    Google({
+      allowDangerousEmailAccountLinking: true,
+    }),
     CredentialsProvider({
       credentials: {
         email: {
