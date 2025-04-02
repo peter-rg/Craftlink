@@ -6,11 +6,13 @@ import ProductGallery from '@/components/shared/product/product-gallery'
 import { Separator } from '@/components/ui/separator'
 import ProductSlider from '@/components/shared/product/product-slider'
 import { getProductBySlug, getProductsRelatedByCategory } from '@/lib/actions/product-action'
-import Rating from '@/components/shared/product/rating'
 import BrowsingHistoryList from '@/components/shared/browsing-history'
 import AddToBrowsingHistory from '@/components/shared/product/add-to-browsing-history'
 import AddToCart from '@/components/shared/product/add-to-cart'
 import { generateId } from '@/lib/utils'
+import { auth } from '@/auth'
+import RatingSummary from '@/components/shared/product/rating-summary'
+import ReviewList from './review-list'
 
 
 export async function generateMetadata(props: {
@@ -36,6 +38,7 @@ export default async function ProductDetails(props: {
   const params = await props.params
   const { slug } = params
   const product = await getProductBySlug(slug)
+  const session = await auth()
 
   const relatedProducts = await getProductsRelatedByCategory({
     category: product.category,
@@ -61,11 +64,12 @@ export default async function ProductDetails(props: {
               <h1 className='font-bold text-lg lg:text-xl'>
                 {product.name}
               </h1>
-              <div className='flex items-center gap-2'>
-                <span>{product.avgRating.toFixed(1)}</span>
-                <Rating rating={product.avgRating} />
-                <span>{product.numReviews} ratings</span>
-              </div>
+              <RatingSummary
+                avgRating={product.avgRating}
+                numReviews={product.numReviews}
+                asPopover
+                ratingDistribution={product.ratingDistribution}
+              />
               <Separator />
               <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
                 <div className='flex gap-3'>
@@ -138,6 +142,12 @@ export default async function ProductDetails(props: {
             </Card>
           </div>
         </div>
+      <section className='mt-10'>
+        <h2 className='h2-bold mb-2' id='reviews'>
+          Customer Reviews
+        </h2>
+        <ReviewList product={product} userId={session?.user.id} />
+      </section>
       </section>
       {/* related items */}
       <section className='mt-10'>

@@ -1,0 +1,10 @@
+AUTH_SECRET=<secret> # Added by `npx auth`. 
+NEXT_PUBLIC_APP_NAME= <website name>
+NEXT_PUBLIC_APP_SLOGAN= <slogan>
+NEXT_PUBLIC_APP_DESCRIPTION= <description of website>
+NEXTAUTH_URL= <Authenticated URL>
+
+MONGODB_URI= <mongodb connection string>
+
+AUTH_GOOGLE_CLIENTID= <ID>
+AUTH_GOOGLE_SECRET= <secret>

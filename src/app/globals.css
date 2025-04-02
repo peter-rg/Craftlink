@@ -83,9 +83,12 @@ body {
   .h1-bold {
     @apply font-bold text-2xl lg:text-3xl;
   }
+  .highlight-link a,
+  a.highlight-link {
+    @apply text-sky-700  hover:text-orange-700 hover:underline;
+  }
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
 }
 
-.highlight-link a,
-a.highlight-link {
-  @apply text-sky-700  hover:text-orange-700 hover:underline;
-}
