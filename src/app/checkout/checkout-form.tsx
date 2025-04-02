@@ -43,7 +43,7 @@ import {
   DEFAULT_PAYMENT_METHOD,
 } from '@/lib/constants'
 import { toast } from '@/hooks/use-toast'
-import { createOrder } from '@/lib/actions/order-action'
+import { createOrder } from '@/lib/actions/order-actions'
 
 const shippingAddressDefaultValues =
   process.env.NODE_ENV === 'development'
