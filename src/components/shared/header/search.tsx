@@ -9,7 +9,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { APP_NAME } from '@/lib/constants'
-const categories = ['Handmade Crafts', 'Fashion & Accessories', 'Home & Living', 'Personalized Gifts','Health & Beauty']
+import { getAllCategories } from '@/lib/actions/product-action'
+
+const categories = await getAllCategories()
 export default async function Search() {
   return (
     <form
