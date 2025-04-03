@@ -31,6 +31,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: MongoDBAdapter(client),
   providers: [
     Google({
+      clientId: process.env.AUTH_GOOGLE_CLIENTID!,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
       allowDangerousEmailAccountLinking: true,
     }),
     CredentialsProvider({
