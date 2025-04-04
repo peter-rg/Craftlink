@@ -25,16 +25,16 @@ const sortOrders = [
 
 const prices = [
   {
-    name: '$1 to $20',
-    value: '1-20',
+    name: 'Ksh 200 to 500',
+    value: '200-500',
   },
   {
-    name: '$21 to $50',
-    value: '21-50',
+    name: 'Ksh 500 to 1500',
+    value: '500-1500',
   },
   {
-    name: '$51 to $1000',
-    value: '51-1000',
+    name: 'Ksh 1500 to 3000',
+    value: '1500-3000',
   },
 ]
 
@@ -269,8 +269,8 @@ export default async function SearchPage(props: {
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
-          {data!.totalPages! > 1 && (
-            <Pagination page={page} totalPages={data!.totalPages} />
+          {data.totalPages > 1 && (
+            <Pagination page={page} totalPages={data.totalPages} />
           )}
         </div>
       </div>
