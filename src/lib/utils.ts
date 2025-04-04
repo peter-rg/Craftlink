@@ -32,8 +32,8 @@ export const formatNumberWithDecimal = (num: number): string => {
   return decimal? `${int}.${decimal.padEnd(2, '0')}`: int
 }
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
-  currency: 'USD',
+const CURRENCY_FORMATTER = new Intl.NumberFormat('en-KE', {
+  currency: 'KES',
   style: 'currency',
   minimumFractionDigits:2,
 })

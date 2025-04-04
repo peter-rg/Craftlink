@@ -6,9 +6,12 @@ import data from '@/lib/data'
 import Search from './search'
 import { getAllCategories } from '@/lib/actions/product-action'
 import Sidebar from './sidebar'
+import { auth } from '@/auth'
 
 export default async function Header() {
   const categories = await getAllCategories()
+  const session = await auth()  // Fetch session on the server
+  const isAdmin = session?.user?.role === 'Admin'
   return (
     <header className='bg-lt-brown text-white'>
       <div className='px-2'>
@@ -34,7 +37,7 @@ export default async function Header() {
             <Search />
           </div>
           {/* menu bar > sign in and cart */}
-          <Menu />
+          <Menu isAdmin={isAdmin} />
         </div>
         {/* search bar which is visible on mobile */}
         <div className='md:hidden block py-2'>

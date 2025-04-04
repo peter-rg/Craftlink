@@ -1,16 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import React from 'react'
 import { PieChart, Pie, ResponsiveContainer, Cell } from 'recharts'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function SalesCategoryPieChart({ data }: { data: any[] }) {
   const RADIAN = Math.PI / 180
   const primaryHSL = '120, 100%, 30%' // Dark green color
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderCustomizedLabel = (props: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { cx, cy, midAngle, innerRadius, outerRadius, index } = props
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5
     const x = cx + radius * Math.cos(-midAngle * RADIAN)
