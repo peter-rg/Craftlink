@@ -35,6 +35,14 @@ export type IUserSignUp = z.infer<typeof UserSignUpSchema>
 export type IUserName = z.infer<typeof UserNameSchema>
 
 export type IOrderInput = z.infer<typeof OrderInputSchema>
+export type IOrderList = IOrderInput & {
+  _id: string
+  user: {
+    name: string
+    email: string
+  }
+  createdAt: Date
+}
 
 export type IReviewInput = z.infer<typeof ReviewInputSchema>
 export type IReviewDetails = IReviewInput & {
