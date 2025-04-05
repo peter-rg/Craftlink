@@ -133,7 +133,12 @@ const ProductList = () => {
                       {product.name}
                     </Link>
                   </TableCell>
-                  <TableCell className='text-right'>${product.price}</TableCell>
+                  <TableCell className='text-right'>
+                    {new Intl.NumberFormat('en-KE', {
+                      style: 'currency',
+                      currency: 'KES',
+                    }).format(product.price)}
+                  </TableCell>
                   <TableCell>{product.category}</TableCell>
                   <TableCell>{product.countInStock}</TableCell>
                   <TableCell>{product.avgRating}</TableCell>
