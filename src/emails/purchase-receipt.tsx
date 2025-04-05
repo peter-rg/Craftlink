@@ -67,7 +67,7 @@ export default async function PurchaseReceiptEmail({
   order,
 }: OrderInformationProps) {
   const site = {
-    url: "https://Localhost:3000"
+    url: "http://Localhost:3000"
   }
   return (
     <Html>

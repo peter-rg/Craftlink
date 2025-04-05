@@ -68,7 +68,7 @@ export default async function AskReviewOrderItemsEmail({
   order,
 }: OrderInformationProps) {
   const site = {
-    url: "https://Localhost:3000"
+    url: "http://Localhost:3000"
   }
   return (
     <Html>

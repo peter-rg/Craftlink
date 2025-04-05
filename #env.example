@@ -8,3 +8,9 @@ MONGODB_URI= <mongodb connection string>
 
 AUTH_GOOGLE_CLIENTID= <ID>
 AUTH_GOOGLE_SECRET= <secret>
+
+UPLOADTHING_TOKEN=<token>
+
+SENDER_NAME=<name>
+SENDER_EMAIL=<email for resend>
+RESEND_API_KEY= <api key from resend>

@@ -154,7 +154,12 @@ export const UserSignUpSchema = UserSignInSchema.extend({
   message: "Passwords don't match",
   path: ['confirmPassword'],
 })
-
+export const UserUpdateSchema = z.object({
+  _id: MongoId,
+  name: UserName,
+  email: Email,
+  role: UserRole,
+})
 
 // Order
 export const OrderInputSchema = z.object({
