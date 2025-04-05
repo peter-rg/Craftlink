@@ -198,3 +198,15 @@ export const OrderInputSchema = z.object({
   isPaid: z.boolean().default(false),
   paidAt: z.date().optional(),
 })
+
+// WEBPAGE
+export const WebPageInputSchema = z.object({
+  title: z.string().min(3, 'Title must be at least 3 characters'),
+  slug: z.string().min(3, 'Slug must be at least 3 characters'),
+  content: z.string().min(1, 'Content is required'),
+  isPublished: z.boolean(),
+})
+
+export const WebPageUpdateSchema = WebPageInputSchema.extend({
+  _id: z.string(),
+})

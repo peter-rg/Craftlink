@@ -10,7 +10,6 @@ const dbConnect = async (MONGODB_URI = process.env.MONGODB_URI) => {
         }
         // Check if already connected
         if (mongoose.connection.readyState >= 1) {
-            console.log("Already connected to MongoDB");
             return;
         }
 
