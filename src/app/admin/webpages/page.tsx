@@ -14,12 +14,16 @@ import { formatId } from '@/lib/utils'
 import { Metadata } from 'next'
 import { deleteWebPage, getAllWebPages } from '@/lib/actions/webpage.actions'
 import { IWebPage } from '@/lib/db/models/webpage.model'
+import { auth } from '@/auth'
 
 export const metadata: Metadata = {
   title: 'Admin Web Pages',
 }
 
 export default async function WebPageAdminPage() {
+    const session = await auth()
+  if (session?.user.role !== 'Admin')
+    throw new Error('Admin permission required')
   const webPages = await getAllWebPages()
   return (
     <div className='space-y-2'>

@@ -460,3 +460,73 @@ export async function deliverOrder(orderId: string) {
     return { success: false, message: formatError(err) }
   }
 }
+
+export async function createMpesaOrder(orderId: string) {
+  await dbConnect()
+  try {
+    const order = await Order.findById(orderId)
+    if (!order) throw new Error('Order not found')
+
+    const phone = order.shippingAddress.phone || ''
+    if (!phone) throw new Error('Customer phone number is missing')
+
+    const shortcode = process.env.MPESA_SHORTCODE
+    const passkey = process.env.MPESA_PASSKEY
+    const token = process.env.MPESA_ACCESS_TOKEN // obtained during authentication
+    const callbackURL = `${process.env.NEXT_PUBLIC_SITE_URL}/api/mpesa/callback`
+
+    // Generate timestamp and password
+    const timestamp = new Date()
+      .toISOString()
+      .replace(/[-:TZ.]/g, '')
+      .slice(0, 14)
+
+    const password = Buffer.from(`${shortcode}${passkey}${timestamp}`).toString('base64')
+
+    const mpesaPayload = {
+      BusinessShortCode: shortcode,
+      Password: password,
+      Timestamp: timestamp,
+      TransactionType: 'CustomerPayBillOnline',
+      Amount: order.totalPrice,
+      PartyA: phone,
+      PartyB: shortcode,
+      PhoneNumber: phone,
+      CallBackURL: callbackURL,
+      AccountReference: order._id.toString(),
+      TransactionDesc: `Payment for Order ${order._id}`,
+    }
+
+    const response = await fetch('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(mpesaPayload),
+    })
+
+    const result = await response.json()
+
+    if (result.ResponseCode !== '0') {
+      throw new Error(result.ResponseDescription || 'M-Pesa request failed')
+    }
+
+    // Store the CheckoutRequestID and response
+    order.paymentResult = {
+      id: result.CheckoutRequestID,
+      status: result.ResponseDescription,
+      pricePaid: order.totalPrice.toString(),
+      email_address: '',
+    }
+    await order.save()
+
+    return {
+      success: true,
+      message: result.CustomerMessage,
+      data: result,
+    }
+  } catch (err) {
+    return { success: false, message: formatError(err) }
+  }
+}
