@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
 
     const items = stkCallback.CallbackMetadata?.Item || []
     const getItemValue = (name: string) => {
+      //eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const item = items.find((i: { Name: string; Value: any }) => i.Name === name)
       return item ? item.Value : undefined
     }
