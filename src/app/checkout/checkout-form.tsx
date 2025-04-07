@@ -48,14 +48,14 @@ import { createOrder } from '@/lib/actions/order-actions'
 const shippingAddressDefaultValues =
   process.env.NODE_ENV === 'development'
     ? {
-        fullName: 'Basir',
-        street: '1911, 65 Sherbrooke Est',
-        city: 'Montreal',
-        province: 'Quebec',
-        phone: '4181234567',
-        postalCode: 'H2X 1C4',
-        country: 'Canada',
-      }
+      fullName: 'Peter',
+      street: 'Kwa Vonza',
+      city: 'Kitui',
+      province: 'Kitui',
+      phone: '4181234567',
+      postalCode: '427',
+      country: 'Kenya',
+    }
     : {
         fullName: '',
         street: '',

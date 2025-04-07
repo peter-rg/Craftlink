@@ -1062,7 +1062,7 @@ const webPages: IWebPageInput[] = [
     slug: 'about-us',
     content: `Welcome to [Your Store Name], your trusted destination for quality products and exceptional service. Our journey began with a mission to bring you the best shopping experience by offering a wide range of products at competitive prices, all in one convenient platform.
 
-At [Your Store Name], we prioritize customer satisfaction and innovation. Our team works tirelessly to curate a diverse selection of items, from everyday essentials to exclusive deals, ensuring there's something for everyone. We also strive to make your shopping experience seamless with fast shipping, secure payments, and excellent customer support.
+At Craftlink, we prioritize customer satisfaction and innovation. Our team works tirelessly to curate a diverse selection of items, from everyday essentials to exclusive deals, ensuring there's something for everyone. We also strive to make your shopping experience seamless with fast shipping, secure payments, and excellent customer support.
 
 As we continue to grow, our commitment to quality and service remains unwavering. Thank you for choosing [Your Store Name]—we look forward to being a part of your journey and delivering value every step of the way.`,
     isPublished: true,
@@ -1074,14 +1074,14 @@ As we continue to grow, our commitment to quality and service remains unwavering
 
 **Customer Support**
 For inquiries about orders, products, or account-related issues, contact our customer support team:
-- **Email:** support@example.com
-- **Phone:** +1 (123) 456-7890
+- **Email:** peterym706@gmail.com
+- **Phone:** +245770943907
 - **Live Chat:** Available on our website from 9 AM to 6 PM (Monday to Friday).
 
 **Head Office**
 For corporate or business-related inquiries, reach out to our headquarters:
-- **Address:** 1234 E-Commerce St, Suite 567, Business City, BC 12345
-- **Phone:** +1 (987) 654-3210
+- **Address:** 1234 Main St, City, Country
+- **Phone:** +245770943907
 
 We look forward to assisting you! Your satisfaction is our priority.
 `,
@@ -1197,7 +1197,7 @@ const data:Data = {
       },
       {
         name: 'Browsing History',
-        href: '/#browsing-history',
+        href: '/browsing-history',
       },
       {
         name: 'Customer Service',
